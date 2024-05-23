@@ -1,7 +1,6 @@
 from google_play_scraper import Sort, reviews_all
 import pandas as pd
-import os
-import pandas as pd
+
 import os
 import sys
 def fetch_app_reviews(app_id):
