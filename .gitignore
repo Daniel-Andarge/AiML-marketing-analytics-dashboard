@@ -91,3 +91,4 @@ myenv/
 # Mypy cache
 .mypy_cache/
 
+myenv/
