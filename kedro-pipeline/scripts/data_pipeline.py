@@ -3,12 +3,14 @@ import pandas as pd
 
 import os
 import sys
+
 def fetch_app_reviews(app_id):
     """
-    Fetches app reviews from  Google Play store.
+    Fetches app reviews from Google Play store.
 
     Args:
         app_id (str): The app ID for which to fetch reviews.
+        max_entries (int): The maximum number of reviews to fetch (default is 1000).
 
     Returns:
         pandas.DataFrame: A DataFrame containing the app reviews.
@@ -17,19 +19,18 @@ def fetch_app_reviews(app_id):
         Exception: If an error occurs while fetching the app reviews.
     """
     try:
-      
         result = reviews_all(
             app_id,
+            
             sleep_milliseconds=0,
-             lang='en',
             country='us',
             sort=Sort.NEWEST,
-            filter_score_with=None 
+            filter_score_with=None
         )
+
         # Convert to Pandas DataFrame
         df = pd.DataFrame(result)
 
-       
         return df
 
     except Exception as e:
@@ -39,12 +40,15 @@ def fetch_app_reviews(app_id):
 
 
 def perform_data_cleaning(df):
+    # Perform data cleaning and transformation
+    df['review_date'] = pd.to_datetime(df['at'])
+    df = df.sort_values('review_date', ascending=False)
+    df = df[['reviewId', 'userName', 'content', 'score', 'thumbsUpCount', 'reviewCreatedVersion', 'review_date', 'appVersion']]
 
- # Perform data cleaning and transformation
-        df['review_date'] = pd.to_datetime(df['at'])
-        df = df.sort_values('review_date', ascending=False)
-        df = df[['reviewId', 'userName', 'content', 'score', 'thumbsUpCount','reviewCreatedVersion','review_date','appVersion']]
+    # Drop NaN values from reviewCreatedVersion and appVersion columns
+    df = df.dropna(subset=['reviewCreatedVersion', 'appVersion'])
 
+    return df
 
 
 def save_app_reviews(df, output_dir='data'):
