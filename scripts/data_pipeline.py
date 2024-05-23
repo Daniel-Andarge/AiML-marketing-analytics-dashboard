@@ -44,7 +44,7 @@ def perform_data_cleaning(df):
  # Perform data cleaning and transformation
         df['review_date'] = pd.to_datetime(df['at'])
         df = df.sort_values('review_date', ascending=False)
-       # df = df[['review_id', 'userName', 'content', 'score', 'review_date']]
+        df = df[['reviewId', 'userName', 'content', 'score', 'thumbsUpCount','reviewCreatedVersion','review_date','appVersion']]
 
 
 
