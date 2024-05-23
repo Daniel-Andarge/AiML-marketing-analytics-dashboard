@@ -68,3 +68,18 @@ def save_app_reviews(df, output_dir='data'):
         print(f"App reviews saved to: {output_path}")
     except Exception as e:
         print(f"Error occurred while saving app reviews: {e}")
+
+        
+
+def save_dataset(df, output_folder, filename):
+
+    # Create  output folder if it doesn't exist
+    os.makedirs(output_folder, exist_ok=True)
+
+ 
+    # Save cleaned dataset
+    output_path = os.path.join(output_folder, filename)
+    df.to_csv(output_path, index=False)
+
+    print(f"Dataset saved to {output_path}")
+    return output_path
