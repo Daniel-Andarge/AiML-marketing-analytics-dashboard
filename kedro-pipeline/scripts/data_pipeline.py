@@ -40,15 +40,12 @@ def fetch_app_reviews(app_id):
 
 
 def perform_data_cleaning(df):
-    # Perform data cleaning and transformation
-    df['review_date'] = pd.to_datetime(df['at'])
-    df = df.sort_values('review_date', ascending=False)
-    df = df[['reviewId', 'userName', 'content', 'score', 'thumbsUpCount', 'reviewCreatedVersion', 'review_date', 'appVersion']]
 
-    # Drop NaN values from reviewCreatedVersion and appVersion columns
-    df = df.dropna(subset=['reviewCreatedVersion', 'appVersion'])
+ # Perform data cleaning and transformation
+        df['review_date'] = pd.to_datetime(df['at'])
+        df = df.sort_values('review_date', ascending=False)
+        df = df[['reviewId', 'userName', 'content', 'score', 'thumbsUpCount','reviewCreatedVersion','review_date','appVersion']]
 
-    return df
 
 
 def save_app_reviews(df, output_dir='data'):
