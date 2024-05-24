@@ -1,0 +1,23 @@
+# Here you can define all your data sets by using simple YAML syntax.
+#
+# Documentation for this file format can be found in "The Data Catalog"
+# Link: https://docs.kedro.org/en/stable/data/data_catalog.html
+
+raw_data:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/raw_reviews_df.csv
+  load_args:
+    sep: ','
+
+intermediate_data:
+  type: pandas.CSVDataSet
+  filepath: data/intermediate/intermediate_data.csv
+  load_args:
+    sep: ','
+
+primary_data:
+  type: kedro.extras.datasets.pandas.PostgreSQLDataSet
+  credentials: postgresql_credentials
+  table_name: primary_data
+  load_args:
+    schema: public
