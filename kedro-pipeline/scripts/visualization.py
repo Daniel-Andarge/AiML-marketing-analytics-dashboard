@@ -1,9 +1,6 @@
 import plotly.graph_objects as go
 import plotly.io as pio
 import pandas as pd
-import pandas as pd
-import matplotlib.pyplot as plt
-import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -137,9 +134,6 @@ def visualize_descriptive_stats(df):
 
 
 
-
-
-
 def analyze_review_trends(df):
     """
     Analyze the trends in review scores and thumbs up count over time using Plotly.
@@ -182,7 +176,6 @@ def analyze_review_trends(df):
         )
     )
 
-    # Show the plot
     fig.show()
 
 
@@ -219,8 +212,6 @@ def categorical_frequency_plot(df):
     
     fig.show()
 
-import pandas as pd
-import plotly.graph_objects as go
 
 def visualize_categorical_univariate_analysis(freq_counts_df):
     """
@@ -251,3 +242,51 @@ def visualize_categorical_univariate_analysis(freq_counts_df):
     )
     
     fig.show()
+
+
+
+
+def plot_telegram_subscribers(df):
+    """
+    Plots a time series plot for Telegram subscribers.
+    
+    Parameters:
+    df (pandas.DataFrame): A DataFrame containing the following columns:
+        - 'date': The date of the subscriber count.
+        - 'total_subscribers': The total number of subscribers.
+        - 'daily_subscribers': The daily change in the number of subscribers.
+    """
+    # Convert the 'date' column to datetime format
+    df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
+
+    # Create the time series plot
+    fig = go.Figure()
+
+    # Add the total subscribers trace
+    fig.add_trace(go.Scatter(
+        x=df['date'],
+        y=df['total_subscribers'],
+        mode='lines+markers',
+        name='Total Subscribers'
+    ))
+
+    # Add the daily subscribers trace
+    fig.add_trace(go.Scatter(
+        x=df['date'],
+        y=df['daily_subscribers'],
+        mode='lines+markers',
+        name='Daily Subscribers'
+    ))
+
+    # Update the layout
+    fig.update_layout(
+        title='Bank of Abyssinia Telegram Subscribers Over Time',
+        xaxis_title='Date',
+        yaxis_title='Number of Subscribers',
+        xaxis_type='date',
+        xaxis_tickformat='%b %d, %Y'
+    )
+
+    # Display the plot
+    fig.show()
+
