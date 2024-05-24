@@ -68,3 +68,25 @@ def categorical_univariate_analysis(df, columns):
     
     return freq_counts_df
 
+
+
+
+
+def describe_telegram_subscribers(df):
+    """
+    Calculates the descriptive statistics for the Telegram subscribers dataset.
+    
+    Parameters:
+    df (pandas.DataFrame): A DataFrame containing the following columns:
+        - 'date': The date of the subscriber count.
+        - 'total_subscribers': The total number of subscribers.
+        - 'daily_subscribers': The daily change in the number of subscribers.
+    
+    Returns:
+    pandas.DataFrame: A DataFrame containing the descriptive statistics for the 'total_subscribers' and 'daily_subscribers' columns.
+    """
+    stats = df[['daily_subscribers']].describe()
+    
+    return stats
+
+
