@@ -67,3 +67,15 @@ def save_app_reviews(df, output_dir='data'):
         print(f"App reviews saved to: {output_path}")
     except Exception as e:
         print(f"Error occurred while saving app reviews: {e}")
+
+
+def load_dataset(path):
+    try:
+        # Load the CSV file into a DataFrame
+        df = pd.read_csv(path, low_memory=False)
+        return df
+    except FileNotFoundError as e:
+        print(f"Error: {e}. The dataset file was not found.")
+    except Exception as e:
+        print(f"Error: {e}. An error occurred while loading the dataset.")
+    return None
