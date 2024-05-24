@@ -21,12 +21,11 @@ def fetch_app_reviews(app_id):
         result = reviews_all(
             app_id,
             sleep_milliseconds=0,
-             lang='en',
             country='us',
             sort=Sort.NEWEST,
             filter_score_with=None 
         )
-        # Convert to Pandas DataFrame
+        
         df = pd.DataFrame(result)
 
        
