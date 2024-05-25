@@ -96,7 +96,6 @@ def sentiment_analysis(df):
     return df
 
 
-import pandas as pd
 
 def calculate_ad_performance(df):
     """
