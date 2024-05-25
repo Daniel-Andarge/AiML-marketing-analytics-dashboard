@@ -1,5 +1,7 @@
 import pandas as pd
 
+from textblob import TextBlob
+from collections import Counter
 def univariate_analysis(df):
     """
     Performs Univariate Analysis on the numerical features of a dataset.
@@ -10,13 +12,11 @@ def univariate_analysis(df):
     Returns:
     pandas.DataFrame: A DataFrame containing the descriptive statistics for the numerical features.
     """
-    
-    # Create a dictionary to store the descriptive statistics
+
     stats = {}
-    
-    # Iterate through the numerical features
+
     for col in df.select_dtypes(include=['int64', 'float64']).columns:
-        # Calculate the descriptive statistics
+     
         mean = df[col].mean()
         median = df[col].median()
         mode = df[col].mode()[0]
@@ -24,7 +24,7 @@ def univariate_analysis(df):
         min_val = df[col].min()
         max_val = df[col].max()
         
-        # Store the statistics in the dictionary
+   
         stats[col] = {
             'Mean': mean,
             'Median': median,
@@ -34,7 +34,6 @@ def univariate_analysis(df):
             'Maximum': max_val
         }
     
-    # Convert the dictionary to a pandas DataFrame
     stats_df = pd.DataFrame.from_dict(stats, orient='index')
     
     return stats_df
@@ -54,16 +53,12 @@ def categorical_univariate_analysis(df, columns):
     pandas.DataFrame: A DataFrame where the index are the column names and the columns are the unique values
                       and their corresponding frequency counts.
     """
-    
-    # Create an empty DataFrame to store the results
+
     freq_counts_df = pd.DataFrame()
-    
-    # Iterate through the specified columns
+
     for col in columns:
-        # Get the frequency counts for the unique values in the column
-        value_counts = df[col].value_counts()
-        
-        # Add the frequency counts to the DataFrame
+
+
         freq_counts_df[col] = value_counts
     
     return freq_counts_df
@@ -90,3 +85,15 @@ def describe_telegram_subscribers(df):
     return stats
 
 
+
+def sentiment_analysis(df):
+ 
+    df['content'] = df['content'].str.lower().str.replace(r'[^\w\s]+', '')
+
+
+    df['sentiment'] = df['content'].apply(lambda x: 'Positive' if TextBlob(x).sentiment.polarity > 0 else
+                                         'Negative' if TextBlob(x).sentiment.polarity < 0 else 'Neutral')
+
+    df['keywords'] = df['content'].apply(lambda x: ', '.join([word for word, count in Counter(str(x).split()).most_common(5)]))
+
+    return df
