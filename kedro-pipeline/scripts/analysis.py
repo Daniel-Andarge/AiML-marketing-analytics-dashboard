@@ -43,26 +43,21 @@ def univariate_analysis(df):
 
 def categorical_univariate_analysis(df, columns):
     """
-    Performs Univariate Analysis on the specified categorical features of a dataset.
-    
-    Args:
-    df (pandas.DataFrame): The input dataset.
-    columns (list): A list of column names to perform the analysis on.
-    
-    Returns:
-    pandas.DataFrame: A DataFrame where the index are the column names and the columns are the unique values
-                      and their corresponding frequency counts.
-    """
+    Perform categorical univariate analysis on the given DataFrame.
 
+    Parameters:
+    df (pandas.DataFrame): The input DataFrame.
+    columns (list): List of column names to perform the analysis on.
+
+    Returns:
+    pandas.DataFrame: A DataFrame containing the frequency counts for each column.
+    """
     freq_counts_df = pd.DataFrame()
 
     for col in columns:
+        freq_counts_df[col] = df[col].value_counts()
 
-
-        freq_counts_df[col] = value_counts
-    
     return freq_counts_df
-
 
 
 
@@ -85,15 +80,38 @@ def describe_telegram_subscribers(df):
     return stats
 
 
-
 def sentiment_analysis(df):
- 
+    # Clean the 'content' column
     df['content'] = df['content'].str.lower().str.replace(r'[^\w\s]+', '')
 
+    # Perform sentiment analysis
+    df['sentiment_score'] = df['content'].apply(lambda x: TextBlob(x).sentiment.polarity)
 
-    df['sentiment'] = df['content'].apply(lambda x: 'Positive' if TextBlob(x).sentiment.polarity > 0 else
-                                         'Negative' if TextBlob(x).sentiment.polarity < 0 else 'Neutral')
+    # Assign sentiment label based on sentiment score
+    df['sentiment'] = df['sentiment_score'].apply(lambda x: 'Positive' if x > 0 else 'Negative' if x < 0 else 'Neutral')
 
+    # Extract the top 5 keywords
     df['keywords'] = df['content'].apply(lambda x: ', '.join([word for word, count in Counter(str(x).split()).most_common(5)]))
 
+    return df
+
+
+import pandas as pd
+
+def calculate_ad_performance(df):
+    """
+    Calculates ad performance metrics for a given dataset.
+    
+    Parameters:
+    df (pandas.DataFrame): The input dataset containing the necessary columns.
+    
+    Returns:
+    pandas.DataFrame: The updated dataset with the new performance metrics.
+    """
+
+    df['ad_id'] = df['bank'] + '_' + df['post_link']
+    
+    df['impressions'] = df['views']
+    df['engagement_rate'] = 1.0  
+    
     return df
