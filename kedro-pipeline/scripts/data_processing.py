@@ -52,3 +52,24 @@ def save_dataset(df, output_folder, filename):
     return output_path
 
 
+
+def  extract_bank_ads__data(df, bank_name):
+    """
+    Retrieves the rows from the input dataframe that correspond to the given bank name.
+    
+    Parameters:
+    df (pandas.DataFrame): The input dataframe.
+    bank_name (str): The name of the bank to filter for.
+    
+    Returns:
+    pandas.DataFrame: A new dataframe containing the rows for the given bank.
+    """
+
+    if 'bank' not in df.columns:
+        raise ValueError("The input dataframe must contain a 'bank' column.")
+    
+    bank_data = df[df['bank'] == bank_name]
+    
+    return bank_data
+
+

@@ -290,3 +290,44 @@ def plot_telegram_subscribers(df):
     # Display the plot
     fig.show()
 
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+def visualize_sentiment_analysis(df):
+    """
+    Visualize the sentiment analysis results from a given DataFrame.
+
+    Parameters:
+    df (pandas.DataFrame): The input DataFrame containing the sentiment analysis data.
+
+    Returns:
+    None
+    """
+    # Create a bar plot of sentiment category distribution
+    plt.figure(figsize=(8, 6))
+    df['sentiment'].value_counts().plot(kind='bar')
+    plt.title('Sentiment Category Distribution')
+    plt.xlabel('Sentiment Category')
+    plt.ylabel('Count')
+    plt.show()
+
+    # Create a heatmap of sentiment categories by keyword
+    plt.figure(figsize=(8, 6))
+    sentiment_pivot = df.pivot_table(index='keywords', columns='sentiment', values='sentiment', aggfunc='count')
+    sns.heatmap(sentiment_pivot, cmap='RdYlGn', annot=True, center=0)
+    plt.title('Sentiment Category Heatmap by Keyword')
+    plt.xlabel('Sentiment Category')
+    plt.ylabel('Keyword')
+    plt.show()
+
+    # Create a bar plot of sentiment categories by keyword
+    plt.figure(figsize=(12, 8))
+    sentiment_counts = df.groupby(['keywords', 'sentiment'])['sentiment'].count().unstack(fill_value=0)
+    sentiment_counts.plot(kind='bar', figsize=(12, 8))
+    plt.title('Sentiment Categories by Keyword')
+    plt.xlabel('Keyword')
+    plt.ylabel('Count')
+    plt.legend()
+    plt.show()
