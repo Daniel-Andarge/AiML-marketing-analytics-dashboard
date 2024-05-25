@@ -1,1 +1,1 @@
-<iframe src="app-review-eda.html" width="100%" height="300"></iframe>
+![EDA](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/task-2/kedro-pipeline/notebooks/app-review-eda.png)
