@@ -1,8 +1,8 @@
-# kedro-pipeline
+# kedro-Data
 
 ## Overview
 
-This is your new Kedro project, which was generated using `kedro 0.18.13`.
+This is your new Kedro project, which was generated using `kedro 0.19.5`.
 
 Take a look at the [Kedro documentation](https://docs.kedro.org) to get started.
 
@@ -17,12 +17,12 @@ In order to get the best out of the template:
 
 ## How to install dependencies
 
-Declare any dependencies in `src/requirements.txt` for `pip` installation and `src/environment.yml` for `conda` installation.
+Declare any dependencies in `requirements.txt` for `pip` installation.
 
 To install them, run:
 
 ```
-pip install -r src/requirements.txt
+pip install -r requirements.txt
 ```
 
 ## How to run your Kedro pipeline
@@ -38,30 +38,22 @@ kedro run
 Have a look at the file `src/tests/test_run.py` for instructions on how to write your tests. You can run your tests as follows:
 
 ```
-kedro test
+pytest
 ```
 
-To configure the coverage threshold, go to the `.coveragerc` file.
+You can configure the coverage threshold in your project's `pyproject.toml` file under the `[tool.coverage.report]` section.
 
 ## Project dependencies
 
-To generate or update the dependency requirements for your project:
-
-```
-kedro build-reqs
-```
-
-This will `pip-compile` the contents of `src/requirements.txt` into a new file `src/requirements.lock`. You can see the output of the resolution by opening `src/requirements.lock`.
-
-After this, if you'd like to update your project requirements, please update `src/requirements.txt` and re-run `kedro build-reqs`.
+To see and update the dependency requirements for your project use `requirements.txt`. You can install the project requirements with `pip install -r requirements.txt`.
 
 [Further information about project dependencies](https://docs.kedro.org/en/stable/kedro_project_setup/dependencies.html#project-specific-dependencies)
 
 ## How to work with Kedro and notebooks
 
-> Note: Using `kedro jupyter` or `kedro ipython` to run your notebook provides these variables in scope: `context`, `catalog`, and `startup_error`.
+> Note: Using `kedro jupyter` or `kedro ipython` to run your notebook provides these variables in scope: `context`, 'session', `catalog`, and `pipelines`.
 >
-> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `pip install -r src/requirements.txt` you will not need to take any extra steps before you use them.
+> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `pip install -r requirements.txt` you will not need to take any extra steps before you use them.
 
 ### Jupyter
 
@@ -99,6 +91,7 @@ And if you want to run an IPython session:
 kedro ipython
 ```
 
+<<<<<<< HEAD
 ### How to convert notebook cells to nodes in a Kedro project
 
 You can move notebook code over into a Kedro project structure using a mixture of [cell tagging](https://jupyter-notebook.readthedocs.io/en/stable/changelog.html#release-5-0-0) and Kedro CLI commands.
@@ -122,3 +115,14 @@ kedro jupyter convert --all
 To automatically strip out all output cell contents before committing to `git`, you can run `kedro activate-nbstripout`. This will add a hook in `.git/config` which will run `nbstripout` before anything is committed to `git`.
 
 > _Note:_ Your output cells will be retained locally.
+=======
+### How to ignore notebook output cells in `git`
+
+To automatically strip out all output cell contents before committing to `git`, you can use tools like [`nbstripout`](https://github.com/kynan/nbstripout). For example, you can add a hook in `.git/config` with `nbstripout --install`. This will run `nbstripout` before anything is committed to `git`.
+
+> _Note:_ Your output cells will be retained locally.
+
+## Package your Kedro project
+
+[Further information about building project documentation and packaging your project](https://docs.kedro.org/en/stable/tutorial/package_a_project.html)
+>>>>>>> main
