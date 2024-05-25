@@ -1,1 +1,1 @@
-![SDA](https://github.com/Daniel-Andarge/Software-Design-and-Architecture-Specialization--University-of-Alberta/blob/main/SDA.png)
+![EDA](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/task-2/kedro-pipeline/notebooks/app-review-eda.png)
