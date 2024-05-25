@@ -75,7 +75,7 @@ def get_sentiment_and_version_updates(reviews):
         title='Sentiment and Version Updates',
         xaxis_title='Date',
         yaxis_title='Average Sentiment Score',
-        width=800,
-        height=600
+        width=1700,
+        height=700
     )
     fig.show()

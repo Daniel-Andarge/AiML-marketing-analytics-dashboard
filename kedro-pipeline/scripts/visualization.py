@@ -4,6 +4,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
+
+
+
+
+
 def scatter_plot(df, x_col, y_col):
     """
     Plot the relationship between two columns in the given DataFrame.
@@ -291,6 +296,7 @@ def plot_telegram_subscribers(df):
     fig.show()
 
 
+
 def visualize_sentiment_analysis(df):
     """
     Visualize the sentiment analysis results from a given DataFrame.
@@ -301,30 +307,29 @@ def visualize_sentiment_analysis(df):
     Returns:
     None
     """
-    plt.figure(figsize=(8, 6))
-    df['sentiment'].value_counts().plot(kind='bar')
-    plt.title('Sentiment Category Distribution')
-    plt.xlabel('Sentiment Category')
-    plt.ylabel('Count')
-    plt.show()
+    # Sentiment Category Distribution
+    fig1 = px.bar(df['sentiment'].value_counts(), x=df['sentiment'].value_counts().index, y=df['sentiment'].value_counts(), title='Sentiment Category Distribution', width=800, height=600)
+    fig1.update_layout(xaxis_title='Sentiment Category', yaxis_title='Count')
+    fig1.show()
 
-    plt.figure(figsize=(8, 6))
-    sentiment_pivot = df.pivot_table(index='keywords', columns='sentiment', values='sentiment', aggfunc='count')
-    sns.heatmap(sentiment_pivot, cmap='RdYlGn', annot=True, center=0)
-    plt.title('Sentiment Category Heatmap by Keyword')
-    plt.xlabel('Sentiment Category')
-    plt.ylabel('Keyword')
-    plt.show()
+    # Sentiment Category Heatmap by Keyword
+    sentiment_pivot = df.groupby(['keywords', 'sentiment']).size().unstack(fill_value=0)
+    fig2 = go.Figure(data=go.Heatmap(
+        x=sentiment_pivot.columns,
+        y=sentiment_pivot.index,
+        z=sentiment_pivot.values,
+        colorscale='RdYlGn',
+        zmin=-1, zmax=1,
+        colorbar_title='Sentiment Score'
+    ))
+    fig2.update_layout(title='Sentiment Category Heatmap by Keyword', width=800, height=600, xaxis_title='Sentiment Category', yaxis_title='Keyword')
+    fig2.show()
 
-    plt.figure(figsize=(12, 8))
+    # Sentiment Categories by Keyword
     sentiment_counts = df.groupby(['keywords', 'sentiment'])['sentiment'].count().unstack(fill_value=0)
-    sentiment_counts.plot(kind='bar', figsize=(12, 8))
-    plt.title('Sentiment Categories by Keyword')
-    plt.xlabel('Keyword')
-    plt.ylabel('Count')
-    plt.legend()
-    plt.show()
-
+    fig3 = px.bar(sentiment_counts, x=sentiment_counts.index, y=sentiment_counts.columns, title='Sentiment Categories by Keyword', width=1200, height=800)
+    fig3.update_layout(xaxis_title='Keyword', yaxis_title='Count', legend_title='Sentiment Category')
+    fig3.show()
 
 def plot_ad_performance(df):
     """
