@@ -3,7 +3,7 @@ import plotly.io as pio
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+import plotly.express as px
 def scatter_plot(df, x_col, y_col):
     """
     Plot the relationship between two columns in the given DataFrame.
@@ -291,10 +291,6 @@ def plot_telegram_subscribers(df):
     fig.show()
 
 
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-
 def visualize_sentiment_analysis(df):
     """
     Visualize the sentiment analysis results from a given DataFrame.
@@ -305,7 +301,6 @@ def visualize_sentiment_analysis(df):
     Returns:
     None
     """
-    # Create a bar plot of sentiment category distribution
     plt.figure(figsize=(8, 6))
     df['sentiment'].value_counts().plot(kind='bar')
     plt.title('Sentiment Category Distribution')
@@ -313,7 +308,6 @@ def visualize_sentiment_analysis(df):
     plt.ylabel('Count')
     plt.show()
 
-    # Create a heatmap of sentiment categories by keyword
     plt.figure(figsize=(8, 6))
     sentiment_pivot = df.pivot_table(index='keywords', columns='sentiment', values='sentiment', aggfunc='count')
     sns.heatmap(sentiment_pivot, cmap='RdYlGn', annot=True, center=0)
@@ -322,7 +316,6 @@ def visualize_sentiment_analysis(df):
     plt.ylabel('Keyword')
     plt.show()
 
-    # Create a bar plot of sentiment categories by keyword
     plt.figure(figsize=(12, 8))
     sentiment_counts = df.groupby(['keywords', 'sentiment'])['sentiment'].count().unstack(fill_value=0)
     sentiment_counts.plot(kind='bar', figsize=(12, 8))
@@ -331,3 +324,135 @@ def visualize_sentiment_analysis(df):
     plt.ylabel('Count')
     plt.legend()
     plt.show()
+
+
+def plot_ad_performance(df):
+    """
+    Creates a line plot visualization of the ad performance metrics.
+    
+    Parameters:
+    df (pandas.DataFrame): The input dataset containing the ad performance metrics.
+    """
+    # Ensure the required columns are present in the DataFrame
+    required_cols = ['bank', 'impressions', 'engagement_rate']
+    if not all(col in df.columns for col in required_cols):
+        raise ValueError("The DataFrame must contain the following columns: 'bank', 'impressions', 'engagement_rate'.")
+    
+    # Group the data by bank and calculate the mean performance metrics
+    bank_performance = df.groupby('bank')[['impressions', 'engagement_rate']].mean().reset_index()
+    
+    # Create the line plot
+    fig = go.Figure()
+    
+    # Add the impressions line
+    fig.add_trace(go.Scatter(x=bank_performance['bank'], y=bank_performance['impressions'], mode='lines+markers', name='Impressions'))
+    
+    # Add the engagement rate line
+    fig.add_trace(go.Scatter(x=bank_performance['bank'], y=bank_performance['engagement_rate'], mode='lines+markers', name='Engagement Rate'))
+    
+    # Customize the layout
+    fig.update_layout(
+        title='Ad Performance Metrics by Bank',
+        xaxis_title='Bank',
+        yaxis_title='Value',
+        font=dict(family='Arial', size=14),
+        legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1)
+    )
+    
+    fig.show()
+
+
+def analyze_optimal_ad_placement(df):
+    """
+    Analyzes the optimal ad placement for banks based on the views per post.
+    
+    Parameters:
+    df (pandas.DataFrame): The input dataset containing the bank data.
+    
+    Returns:
+    None
+    """
+    # Ensure the required columns are present in the DataFrame
+    required_cols = ['bank', 'views', 'time_of_day', 'post_link']
+    if not all(col in df.columns for col in required_cols):
+        raise ValueError("The DataFrame must contain the following columns: 'bank', 'views', 'time_of_day', 'post_link'.")
+    
+    # Find the bank with the highest average views per post
+    bank_views = df.groupby('bank')['views'].mean().reset_index()
+    top_bank = bank_views.loc[bank_views['views'].idxmax()]['bank']
+    
+    # Analyze the "time_of_day" distribution of the top-performing bank's ads
+    top_bank_df = df[df['bank'] == top_bank]
+    top_bank_time_dist = top_bank_df.groupby('time_of_day')['views'].mean().reset_index()
+    
+    # Analyze the "time_of_day" distribution of the other banks' ads
+    other_banks_df = df[df['bank'] != top_bank]
+    other_banks_time_dist = other_banks_df.groupby('time_of_day')['views'].mean().reset_index()
+    
+    # Visualize the views per post for each bank
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=bank_views['bank'], y=bank_views['views'], name='Views per Post'))
+    fig.update_layout(
+        title='Views per Post by Bank',
+        xaxis_title='Bank',
+        yaxis_title='Views per Post',
+        font=dict(family='Arial', size=14)
+    )
+    fig.show()
+    
+    # Visualize the "time_of_day" distribution for the top-performing bank and other banks
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=top_bank_time_dist['time_of_day'], y=top_bank_time_dist['views'], mode='lines+markers', name=top_bank))
+    fig.add_trace(go.Scatter(x=other_banks_time_dist['time_of_day'], y=other_banks_time_dist['views'], mode='lines+markers', name='Other Banks'))
+    fig.update_layout(
+        title='Time of Day Distribution of Views',
+        xaxis_title='Time of Day',
+        yaxis_title='Average Views',
+        font=dict(family='Arial', size=14),
+        legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1)
+    )
+    fig.show()
+
+
+def ad_per_time_of_day(df):
+    """
+    Analyzes the optimal ad placement for banks based on the views per post.
+    
+    Parameters:
+    df (pandas.DataFrame): The input dataset containing the bank data.
+    
+    Returns:
+    None
+    """
+    # Ensure the required columns are present in the DataFrame
+    required_cols = ['bank', 'views', 'time_of_day', 'post_link']
+    if not all(col in df.columns for col in required_cols):
+        raise ValueError("The DataFrame must contain the following columns: 'bank', 'views', 'time_of_day', 'post_link'.")
+    
+    # Find the bank with the highest average views per post
+    bank_views = df.groupby('bank')['views'].mean().reset_index()
+    top_bank = bank_views.loc[bank_views['views'].idxmax()]['bank']
+    
+    # Analyze the "time_of_day" distribution of the top-performing bank's ads
+    top_bank_df = df[df['bank'] == top_bank]
+    top_bank_time_dist = top_bank_df.groupby('time_of_day')['post_link'].count().reset_index()
+    top_bank_time_dist.columns = ['time_of_day', 'num_posts']
+    
+    # Analyze the "time_of_day" distribution of the other banks' ads
+    other_banks_df = df[df['bank'] != top_bank]
+    other_banks_time_dist = other_banks_df.groupby('time_of_day')['post_link'].count().reset_index()
+    other_banks_time_dist.columns = ['time_of_day', 'num_posts']
+
+    
+    # Visualize the "time_of_day" distribution for the top-performing bank and other banks
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=top_bank_time_dist['time_of_day'], y=top_bank_time_dist['num_posts'], mode='lines+markers', name=top_bank))
+    fig.add_trace(go.Scatter(x=other_banks_time_dist['time_of_day'], y=other_banks_time_dist['num_posts'], mode='lines+markers', name='Other Banks'))
+    fig.update_layout(
+        title='Number of Posts per Time of Day',
+        xaxis_title='Time of Day',
+        yaxis_title='Number of Posts',
+        font=dict(family='Arial', size=14),
+        legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1)
+    )
+    fig.show()

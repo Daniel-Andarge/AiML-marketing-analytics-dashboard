@@ -4,15 +4,19 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from datetime import datetime
 
-
+# Initialize an empty list to store the data
 data = []
 
-max_posts = 100
+# Define the range of post numbers to loop through
+start_post = 70000
+end_post = 87823
 
-keyword = '#BankofAbyssinia'
+# Define the keywords to check for
+keywords = ['#BankofAbyssinia', '#Abyssinia_Bank']
 
+# Helper function to convert views to numbers
 def convert_views(views_str):
-    views_str = views_str.replace(',', '')  
+    views_str = views_str.replace(',', '')  # Remove commas if present
     if 'K' in views_str:
         views = float(views_str.replace('K', '')) * 1000
     elif 'M' in views_str:
@@ -23,14 +27,9 @@ def convert_views(views_str):
         views = float(views_str)
     return int(views)
 
-
-posts_processed = 0
-
-
-post_num = 1
-while posts_processed < max_posts:
+for post_num in range(start_post, end_post + 1):
     try:
-        # Construct the URL for the latest post
+        # Construct the URL for each post
         channel_url = f'https://t.me/tikvahethiopia/{post_num}?embed=1&mode=tme'
         
         # Send a request to the Telegram channel's web page
@@ -42,62 +41,62 @@ while posts_processed < max_posts:
         
         for message in messages:
             try:
+                # Check if any of the keywords are in the message
+                for keyword in keywords:
+                    if keyword in message.get_text():
+                        try:
+                            post_link = message.find('a', class_='tgme_widget_message_date')['href']
+                        except Exception:
+                            post_link = None
+                        
+                        try:
+                            date = message.find('time')['datetime']
+                        except Exception:
+                            date = None
+                        
+                        try:
+                            views_str = message.find('span', class_='tgme_widget_message_views').text if message.find('span', class_='tgme_widget_message_views') else '0'
+                            views = convert_views(views_str)
+                        except Exception:
+                            views = None
+                        
+                        try:
+                            post_time = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').time().strftime('%H:%M:%S')
+                        except Exception:
+                            post_time = None
+                        
+                        try:
+                            bank = keyword  # Use the keyword as the bank name
+                        except Exception:
+                            bank = None
+                        
+                        try:
+                            hour = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').hour
+                            if hour < 12:
+                                time_of_day = 'morning'
+                            elif hour < 18:
+                                time_of_day = 'afternoon'
+                            else:
+                                time_of_day = 'evening'
+                        except Exception:
+                            time_of_day = None
 
-                if keyword in message.get_text():
-                    try:
-                        post_link = message.find('a', class_='tgme_widget_message_date')['href']
-                    except Exception:
-                        post_link = None
-                    
-                    try:
-                        date = message.find('time')['datetime']
-                    except Exception:
-                        date = None
-                    
-                    try:
-                        views_str = message.find('span', class_='tgme_widget_message_views').text if message.find('span', class_='tgme_widget_message_views') else '0'
-                        views = convert_views(views_str)
-                    except Exception:
-                        views = None
-                    
-                    try:
-                        post_time = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').time().strftime('%H:%M:%S')
-                    except Exception:
-                        post_time = None
-                    
-                    try:
-                        keyword_found = keyword
-                    except Exception:
-                        keyword_found = None
-                    
-                    try:
-                        hour = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').hour
-                        if hour < 12:
-                            time_of_day = 'morning'
-                        elif hour < 18:
-                            time_of_day = 'afternoon'
-                        else:
-                            time_of_day = 'evening'
-                    except Exception:
-                        time_of_day = None
-
-                    data.append([post_link, date, views, post_time, keyword_found, time_of_day])
-                    posts_processed += 1
-                    if posts_processed >= max_posts:
-                        break
+                        data.append([post_link, date, views, post_time, bank, time_of_day])
             except Exception as e:
                 print(f"Error processing message {post_num}: {e}")
     except Exception as e:
         print(f"Error fetching post {post_num}: {e}")
-    
-    post_num += 1
 
-df = pd.DataFrame(data, columns=['post_link', 'date', 'views', 'post_time', 'ad_type', 'time_of_day'])
+# Create a DataFrame
+df = pd.DataFrame(data, columns=['post_link', 'date', 'views', 'post_time', 'bank', 'time_of_day'])
 
-folder_path = os.path.join(os.getcwd(), '..', 'data') 
-csv_path = os.path.join(folder_path, 'telegram_ads_data.csv')
+# Specify the folder path to save the CSV file
+folder_path = os.path.join(os.getcwd(), '..', 'data')  # Go one level up from the current directory to 'data' folder
+csv_path = os.path.join(folder_path, 'banks_telegram_posts_data.csv')
 
+# Check if the folder exists, if not create it
 if not os.path.exists(folder_path):
     os.makedirs(folder_path)
 
+# Save to CSV
 df.to_csv(csv_path, index=False)
