@@ -41,7 +41,7 @@ To View the full EDA Click here [Exploratory-Data-Analysis](https://github.com/D
 
 ### Optimal Ad Placement
 
-![EDA-view](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/main/kedro-pipeline/notebooks/view_per_post.png)
+![EDA-view](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/main/kedro-pipeline/notebooks/views.png)
 
 ## Contributing Guidelines
 
