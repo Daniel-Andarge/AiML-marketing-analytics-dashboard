@@ -33,8 +33,6 @@ The Marketing Analytics Dashboard project is a comprehensive solution designed t
 
 ## Exploratory Data Analysis (EDA)
 
-To View the full EDA Click here [Exploratory-Data-Analysis](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/task-2/kedro-pipeline/notebooks/app-review-eda.png)
-
 ### Sentiment Analysis
 
 ![EDA-sentiment](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/task-2/kedro-pipeline/notebooks/Sentiment.png)
@@ -42,6 +40,8 @@ To View the full EDA Click here [Exploratory-Data-Analysis](https://github.com/D
 ### Optimal Ad Placement
 
 ![EDA-view](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/task-2/kedro-pipeline/notebooks/views.png)
+
+To View the full EDA Click here [Exploratory-Data-Analysis](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/task-2/kedro-pipeline/notebooks/app-review-eda.png)
 
 ## Contributing Guidelines
 
