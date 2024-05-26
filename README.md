@@ -33,7 +33,7 @@ The Marketing Analytics Dashboard project is a comprehensive solution designed t
 
 ## Exploratory Data Analysis (EDA)
 
-### Sentiment Analysis
+### Sentiment analysis on Google app reviews
 
 ![EDA-sentiment](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/task-2/kedro-pipeline/notebooks/Sentiment.png)
 
