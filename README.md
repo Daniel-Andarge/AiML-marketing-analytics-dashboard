@@ -37,7 +37,7 @@ The Marketing Analytics Dashboard project is a comprehensive solution designed t
 
 ![EDA-sentiment](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/task-2/kedro-pipeline/notebooks/Sentiment.png)
 
-#### Sentiment app key strengths and weaknesses
+### Sentiment - The App key strengths and weaknesses from Google app reviews
 
 ![EDA-key](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/main/kedro-pipeline/notebooks/output_46_0.png)
 
