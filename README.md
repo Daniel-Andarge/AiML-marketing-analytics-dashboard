@@ -37,11 +37,11 @@ To View the full EDA Click here [Exploratory-Data-Analysis](https://github.com/D
 
 ### Sentiment Analysis
 
-![EDA](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/main/kedro-pipeline/notebooks/Sentiment.png)
+![EDA-sentiment](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/task-2/kedro-pipeline/notebooks/Sentiment.png)
 
 ### Optimal Ad Placement
 
-![EDA](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/main/kedro-pipeline/notebooks/view_per_post.png)
+![EDA-view](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/main/kedro-pipeline/notebooks/view_per_post.png)
 
 ## Contributing Guidelines
 
