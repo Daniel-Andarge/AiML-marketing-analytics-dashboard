@@ -1,0 +1,27 @@
+services:
+  superset:
+    image: apache/superset:latest
+    environment:
+      - SUPERSET_CONFIG_PATH=/app/superset_config.py
+      - SUPERSET_HOME=/app/superset
+      - DATABASE_URL=postgresql://superset:superset@db/superset
+    volumes:
+      - superset_data:/app/superset
+      - ./superset_config.py:/app/superset_config.py
+    ports:
+      - 8088:8088
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15.2
+    environment:
+      - POSTGRES_DB=marketing
+      - POSTGRES_USER=superset
+      - POSTGRES_PASSWORD=superset
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  superset_data:
+  db_data:
