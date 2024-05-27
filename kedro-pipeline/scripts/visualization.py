@@ -5,7 +5,27 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 
+def plot_unique_posts_per_bank(df):
+    """
+    Plots a bar chart showing the number of unique posts per bank using Plotly.
+    
+    Parameters:
+    df (pandas.DataFrame): The input DataFrame with the bank and post count information.
+    """
+    fig = go.Figure(data=[go.Bar(
+        x=df['bank'],
+        y=df['count'],
+        textposition='auto'
+    )])
 
+    fig.update_layout(
+        title='Number of Unique Posts per Bank',
+        xaxis_title='Bank',
+        yaxis_title='Number of Unique Posts',
+        xaxis_tickangle=-45
+    )
+
+    fig.show()
 
 
 
