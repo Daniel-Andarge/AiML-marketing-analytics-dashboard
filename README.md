@@ -45,7 +45,7 @@ The Marketing Analytics Dashboard project is a comprehensive solution designed t
 
 ![EDA-view](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/task-2/kedro-pipeline/notebooks/ad_views.png)
 
-To View the full EDA Click here [Exploratory-Data-Analysis](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/task-2/kedro-pipeline/notebooks/app-review-eda.png)
+To View the full EDA Click here [Exploratory-Data-Analysis](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/main/kedro-pipeline/notebooks/eda.png)
 
 ## Contributing Guidelines
 
