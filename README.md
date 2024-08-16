@@ -1,6 +1,21 @@
-# Marketing Analytics Dashboard
+# Sentiment Analysis and Marketing Dashboard for Ethiopian Bank
 
-The Marketing Analytics Dashboard project is a comprehensive solution designed to monitor and evaluate the efficiency of marketing ads for a tech-savvy bank in Ethiopia. By collecting data from various sources such as Tikvah-Ethiopia channel, Play Store, and Telegram subscriptions, the project aims to provide key insights on ad performance, app downloads, and telegram channel subscriptions. The dashboard system is connected to a PostgreSQL data warehouse, ensuring real-time data updates and enabling the marketing and sales team to make data-driven decisions to optimize their marketing strategy.
+This project focused on developing a comprehensive sentiment analysis and marketing dashboard solution for an Ethiopian bank. The goal was to provide the bank's marketing and sales teams with data-driven insights to optimize their campaigns and strategies.
+
+### The key aspects of the project include:
+
+- Sentiment Analysis:
+Leveraging natural language processing (NLP) techniques to analyze customer feedback and comments from various channels, including the bank's mobile app, social media, and customer support interactions. This helped identify emerging sentiment trends and customer pain points.
+
+- Marketing Performance Tracking:
+Integrating data from multiple sources, such as app store analytics, digital ad campaigns, and channel subscriptions (e.g., Telegram). This enabled the dashboard to monitor key metrics like ad engagement, app downloads, and subscriber growth.
+
+- Data-Driven Insights:
+The dashboard was connected to a PostgreSQL data warehouse, ensuring real-time data updates. This allowed the marketing and sales teams to quickly identify opportunities, troubleshoot issues, and make data-informed decisions to refine their strategies.
+
+- Scalable and Responsive Design:
+The dashboard was designed to be user-friendly and easily accessible, with a responsive layout that adapted well to different devices and screen sizes. This ensured the insights were readily available to the bank's stakeholders.
+
 
 ## Usage Instructions
 
@@ -70,7 +85,7 @@ MIT License
 
 AiML-marketing-analytics-dashboard
 
-Copyright (c) [2024] [Daniel Andarge]
+Copyright (c) 2024 Daniel Andarge
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
