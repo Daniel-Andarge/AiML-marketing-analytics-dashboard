@@ -62,22 +62,9 @@ The dashboard was designed to be user-friendly and easily accessible, with a res
 
 To View the full EDA Click here [Exploratory-Data-Analysis](https://github.com/Daniel-Andarge/AiML-marketing-analytics-dashboard/blob/main/kedro-pipeline/notebooks/eda.png)
 
-## Contributing Guidelines
+## Contributing
 
 Thank you for considering contributing to AiML-marketing-analytics-dashboard! I welcome contributions from everyone.
-
-To contribute, follow these guidelines:
-
-1. Fork the repository and create a new branch for your changes.
-2. Check existing issues and pull requests to avoid duplicating work.
-3. Follow the project's coding style and conventions.
-4. Write clear commit messages and ensure your code is well-tested.
-5. Provide a detailed description when submitting a pull request.
-6. Be open to feedback and responsive during the review process.
-7. Respect the project's code of conduct.
-8. Your contributions will be licensed under the MIT License.
-
-I appreciate your contributions!
 
 ## License
 
